@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MH Wilds Skills">
+<title>MH Wilds Interactive Skill & Build App</title>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --surface: #141821;
+    --surface-2: #1d2330;
+    --border: #2a3244;
+    --text: #f3f5f9;
+    --text-muted: #9aa5b8;
+    --accent: #f59e0b;
+    --accent-soft: rgba(245, 158, 11, 0.16);
+    --badge-weapon: #ef4444;
+    --badge-armor: #3b82f6;
+    --badge-set: #a855f7;
+    --badge-group: #10b981;
+  }
+
+  [data-theme="crimson"] {
+    --bg: #12090b;
+    --surface: #1d0f13;
+    --surface-2: #29151b;
+    --border: #42202a;
+    --text: #fdf2f4;
+    --text-muted: #c49aa4;
+    --accent: #fb7185;
+    --accent-soft: rgba(251, 113, 133, 0.18);
+  }
+
+  [data-theme="abyssal"] {
+    --bg: #071214;
+    --surface: #0d1f23;
+    --surface-2: #132d33;
+    --border: #1e454e;
+    --text: #ecfeff;
+    --text-muted: #8ab8c2;
+    --accent: #2dd4bf;
+    --accent-soft: rgba(45, 212, 191, 0.16);
+  }
+
+  [data-theme="amethyst"] {
+    --bg: #0e0a17;
+    --surface: #181126;
+    --surface-2: #231938;
+    --border: #382859;
+    --text: #f5f3ff;
+    --text-muted: #ada0cc;
+    --accent: #c084fc;
+    --accent-soft: rgba(192, 132, 252, 0.18);
+  }
+
+  [data-theme="slate"] {
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --surface-2: #334155;
+    --border: #475569;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --accent: #38bdf8;
+    --accent-soft: rgba(56, 189, 248, 0.18);
+  }
+
+  [data-theme="light"] {
+    --bg: #f4f6f9;
+    --surface: #ffffff;
+    --surface-2: #eef2f6;
+    --border: #d5dde7;
+    --text: #111827;
+    --text-muted: #4b5563;
+    --accent: #d97706;
+    --accent-soft: rgba(217, 119, 6, 0.14);
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-bottom: 40px;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--accent);
+  }
+
+  .theme-bar {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .theme-btn {
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    padding: 5px 9px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .theme-btn.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #000;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 14px;
+  }
+
+  .section-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin: 0 0 10px 0;
+    font-weight: 700;
+  }
+
+  .weapon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+    gap: 8px;
+  }
+
+  .weapon-btn {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 9px 10px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .weapon-btn:active, .weapon-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .search-wrap {
+    display: flex;
+    gap: 8px;
+  }
+
+  .search-input {
+    flex: 1;
+    padding: 11px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  .clear-btn {
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .filter-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .filter-btn {
+    padding: 7px 13px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .filter-btn.active {
+    background: var(--accent);
+    color: #000;
+    border-color: var(--accent);
+  }
+
+  .count-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .skill-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+
+  .badge-Weapon { background: var(--badge-weapon); }
+  .badge-Armor { background: var(--badge-armor); }
+  .badge-Set { background: var(--badge-set); }
+  .badge-Group { background: var(--badge-group); }
+
+  .active-skill-title {
+    margin: 2px 0 6px 0;
+    font-size: 1.35rem;
+    font-weight: 800;
+  }
+
+  .active-skill-desc {
+    margin: 0 0 14px 0;
+    font-size: 1.02rem;
+    line-height: 1.48;
+    color: var(--text);
+  }
+
+  .bars-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .bar-label-line {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 0.92rem;
+    font-weight: 700;
+  }
+
+  .bar-track {
+    width: 100%;
+    height: 16px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 8px;
+    transition: width 0.25s ease;
+  }
+
+  .action-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .action-btn {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .action-btn.secondary {
+    background: var(--surface-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+  }
+
+  .skill-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .skill-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+
+  .skill-item.selected {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
+  }
+
+  .skill-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .skill-item-name {
+    font-size: 1.12rem;
+    font-weight: 800;
+  }
+
+  .skill-item-desc {
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: var(--text-muted);
+    margin: 0 0 8px 0;
+  }
+
+  .skill-levels-mini {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .lvl-pill {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 28px 16px;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    color: var(--text-muted);
+  }
+
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    z-index: 100;
+    padding: 16px;
+    overflow-y: auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-backdrop.open {
+    display: flex;
+  }
+
+  .modal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 18px;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+    gap: 8px;
+  }
+
+  .close-btn {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .build-card {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .build-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  .build-card h3 {
+    margin: 0;
+    color: var(--accent);
+    font-size: 1.05rem;
+  }
+
+  .copy-build-btn {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 7px;
