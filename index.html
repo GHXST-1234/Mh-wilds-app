@@ -22,482 +22,656 @@
     --badge-set: #a855f7;
     --badge-group: #10b981;
   }
-
-  body.theme-crimson {
-    --bg: #12090b;
-    --surface: #1d0f13;
-    --surface-2: #29151b;
-    --border: #42202a;
-    --text: #fdf2f4;
-    --text-muted: #c49aa4;
-    --accent: #fb7185;
-    --accent-soft: rgba(251, 113, 133, 0.18);
-  }
-
-  body.theme-abyssal {
-    --bg: #071214;
-    --surface: #0d1f23;
-    --surface-2: #132d33;
-    --border: #1e454e;
-    --text: #ecfeff;
-    --text-muted: #8ab8c2;
-    --accent: #2dd4bf;
-    --accent-soft: rgba(45, 212, 191, 0.16);
-  }
-
-  body.theme-amethyst {
-    --bg: #0e0a17;
-    --surface: #181126;
-    --surface-2: #231938;
-    --border: #382859;
-    --text: #f5f3ff;
-    --text-muted: #ada0cc;
-    --accent: #c084fc;
-    --accent-soft: rgba(192, 132, 252, 0.18);
-  }
-
-  body.theme-slate {
-    --bg: #0f172a;
-    --surface: #1e293b;
-    --surface-2: #334155;
-    --border: #475569;
-    --text: #f8fafc;
-    --text-muted: #94a3b8;
-    --accent: #38bdf8;
-    --accent-soft: rgba(56, 189, 248, 0.18);
-  }
-
-  body.theme-light {
-    --bg: #f4f6f9;
-    --surface: #ffffff;
-    --surface-2: #eef2f6;
-    --border: #d5dde7;
-    --text: #111827;
-    --text-muted: #4b5563;
-    --accent: #d97706;
-    --accent-soft: rgba(217, 119, 6, 0.14);
-  }
-
+  body.theme-crimson { --bg: #12090b; --surface: #1d0f13; --surface-2: #29151b; --border: #42202a; --text: #fdf2f4; --text-muted: #c49aa4; --accent: #fb7185; --accent-soft: rgba(251, 113, 133, 0.18); }
+  body.theme-abyssal { --bg: #071214; --surface: #0d1f23; --surface-2: #132d33; --border: #1e454e; --text: #ecfeff; --text-muted: #8ab8c2; --accent: #2dd4bf; --accent-soft: rgba(45, 212, 191, 0.16); }
+  body.theme-amethyst { --bg: #0e0a17; --surface: #181126; --surface-2: #231938; --border: #382859; --text: #f5f3ff; --text-muted: #ada0cc; --accent: #c084fc; --accent-soft: rgba(192, 132, 252, 0.18); }
+  body.theme-slate { --bg: #0f172a; --surface: #1e293b; --surface-2: #334155; --border: #475569; --text: #f8fafc; --text-muted: #94a3b8; --accent: #38bdf8; --accent-soft: rgba(56, 189, 248, 0.18); }
+  body.theme-light { --bg: #f4f6f9; --surface: #ffffff; --surface-2: #eef2f6; --border: #d5dde7; --text: #111827; --text-muted: #4b5563; --accent: #d97706; --accent-soft: rgba(217, 119, 6, 0.14); }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #0b0d12;
-    background: var(--bg);
-    color: #f3f5f9;
-    color: var(--text);
-    padding-bottom: 40px;
-    transition: background 0.2s, color 0.2s;
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b0d12; background: var(--bg); color: #f3f5f9; color: var(--text); padding-bottom: 40px; }
+  header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 14px 16px; position: sticky; top: 0; z-index: 50; }
+  .header-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+  h1 { margin: 0; font-size: 1.2rem; font-weight: 800; color: var(--accent); }
+  .theme-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+  .theme-btn { border: 1px solid var(--border); background: var(--surface-2); color: var(--text); padding: 5px 9px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; cursor: pointer; }
+  .theme-btn.active { border-color: var(--accent); background: var(--accent); color: #000; }
+  .container { max-width: 960px; margin: 0 auto; padding: 14px; }
+  .section-box, .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 16px; }
+  .section-title { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin: 0 0 10px 0; font-weight: 700; }
+  .weapon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 8px; }
+  .weapon-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); padding: 9px 10px; border-radius: 10px; font-size: 0.82rem; font-weight: 600; cursor: pointer; }
+  .controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+  .search-wrap { display: flex; gap: 8px; }
+  .search-input { flex: 1; padding: 11px 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 1rem; }
+  .clear-btn { padding: 0 14px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); font-weight: 700; cursor: pointer; }
+  .filter-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .filter-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+  .filter-btn { padding: 7px 13px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text); font-size: 0.85rem; font-weight: 600; white-space: nowrap; cursor: pointer; }
+  .filter-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+  .count-label { font-size: 0.82rem; color: var(--text-muted); font-weight: 600; }
+  .skill-badge { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #fff; margin-bottom: 4px; }
+  .badge-Weapon { background: var(--badge-weapon); } .badge-Armor { background: var(--badge-armor); } .badge-Set { background: var(--badge-set); } .badge-Group { background: var(--badge-group); }
+  .active-skill-title { margin: 2px 0 6px 0; font-size: 1.35rem; font-weight: 800; }
+  .active-skill-desc { margin: 0 0 14px 0; font-size: 1.02rem; line-height: 1.48; color: var(--text); }
+  .bars-wrap, .skill-list { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: flex; flex-direction: column; gap: 4px; }
+  .bar-label-line { display: flex; justify-content: space-between; gap: 8px; font-size: 0.92rem; font-weight: 700; }
+  .bar-track { width: 100%; height: 16px; background: var(--surface-2); border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .bar-fill { height: 100%; background: var(--accent); border-radius: 8px; transition: width 0.25s ease; }
+  .action-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .action-btn { background: var(--accent); color: #000; border: none; padding: 10px 14px; border-radius: 10px; font-size: 0.88rem; font-weight: 700; cursor: pointer; text-decoration: none; display: inline-block; }
+  .action-btn.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+  .skill-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px; cursor: pointer; }
+  .skill-item.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .skill-item-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .skill-item-name { font-size: 1.12rem; font-weight: 800; }
+  .skill-item-desc { font-size: 0.98rem; line-height: 1.45; color: var(--text-muted); margin: 0 0 8px 0; }
+  .skill-levels-mini { display: flex; flex-wrap: wrap; gap: 6px; }
+  .lvl-pill { background: var(--surface-2); border: 1px solid var(--border); padding: 4px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+  .empty-state { text-align: center; padding: 28px 16px; background: var(--surface); border: 1px dashed var(--border); border-radius: 12px; color: var(--text-muted); }
+  .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.78); z-index: 100; padding: 16px; overflow-y: auto; align-items: center; justify-content: center; }
+  .modal-backdrop.open { display: flex; }
+  .modal-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; max-width: 640px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 18px; }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 14px; gap: 8px; }
+  .close-btn { background: var(--surface-2); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+  .build-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+  .build-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px; }
+  .build-card h3 { margin: 0; color: var(--accent); font-size: 1.05rem; }
+  .copy-build-btn { background: var(--accent); color: #000; border: none; padding: 5px 10px; border-radius: 7px; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
+  .build-meta { font-size: 0.88rem; margin: 4px 0; line-height: 1.4; }
+  .preview-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 10px; }
+</style>
+</head>
+
+  <body class="theme-obsidian">
+
+<header>
+  <div class="header-top">
+    <h1>MH Wilds Skill & Build App</h1>
+    <div class="theme-bar" id="themeBar">
+      <button class="theme-btn active" data-t="obsidian">Obsidian</button>
+      <button class="theme-btn" data-t="crimson">Crimson</button>
+      <button class="theme-btn" data-t="abyssal">Abyssal</button>
+      <button class="theme-btn" data-t="amethyst">Amethyst</button>
+      <button class="theme-btn" data-t="slate">Slate</button>
+      <button class="theme-btn" data-t="light">Light</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="section-box">
+    <div class="section-title">Popular Monster Builds (All 14 Weapons)</div>
+    <div class="weapon-grid" id="weaponGrid"></div>
+  </div>
+
+  <div class="chart-card" id="chartCard">
+    <div class="chart-header">
+      <div>
+        <span class="skill-badge" id="activeBadge">Armor</span>
+        <h2 class="active-skill-title" id="activeTitle">Coalescence</h2>
+      </div>
+    </div>
+    <p class="active-skill-desc" id="activeDesc"></p>
+    <div class="bars-wrap" id="barsWrap"></div>
+    <div class="action-bar">
+      <button class="action-btn" id="btnExportSingle">Save Active Chart Image</button>
+      <button class="action-btn secondary" id="btnExportFull">Save Full A-Z Poster</button>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search skills (e.g. Coalescence, Burst, Agitator)...">
+      <button class="clear-btn" id="clearSearchBtn" title="Reset search & filters">Reset</button>
+    </div>
+    <div class="filter-meta">
+      <div class="filter-row" id="filterRow">
+        <button class="filter-btn active" data-cat="All">All (A-Z)</button>
+        <button class="filter-btn" data-cat="Weapon">Weapon</button>
+        <button class="filter-btn" data-cat="Armor">Armor</button>
+        <button class="filter-btn" data-cat="Set">Set Bonus</button>
+        <button class="filter-btn" data-cat="Group">Group</button>
+      </div>
+      <span class="count-label" id="skillCountLabel"></span>
+    </div>
+  </div>
+
+  <div class="skill-list" id="skillList"></div>
+</div>
+
+<div class="modal-backdrop" id="buildModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2 id="modalWeaponTitle" style="margin:0;font-size:1.2rem;">Builds</h2>
+      <button class="close-btn" id="closeBuildModal">Close</button>
+    </div>
+    <div id="modalBuildBody"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="imgModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2 style="margin:0;font-size:1.1rem;">Save Generated Chart</h2>
+      <button class="close-btn" id="closeImgModal">Done</button>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px;">
+      <p style="margin:0;font-size:0.9rem;color:var(--text-muted);">
+        Tap <strong>Download PNG</strong> or press & hold the image below.
+      </p>
+      <a id="downloadPngLink" class="action-btn" download="mh-wilds-skill-chart.png">Download PNG</a>
+    </div>
+    <img id="previewImg" class="preview-img" alt="MH Wilds Chart">
+  </div>
+</div>
+
+<script>
+const SKILLS = new Array(
+  { name: "Adrenaline Rush", cat: "Armor", desc: "Temporarily increases attack power for 30 seconds after executing a perfectly timed evade just as a monster attacks.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+10 Attack" },
+    { lv: "Lv 2", val: 50, text: "+15 Attack" },
+    { lv: "Lv 3", val: 66, text: "+20 Attack" },
+    { lv: "Lv 4", val: 83, text: "+25 Attack" },
+    { lv: "Lv 5", val: 100, text: "+30 Attack" }
+  )},
+  { name: "Agitator", cat: "Armor", desc: "Increases attack power and affinity when large monsters become enraged.", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "+4 Attack, +3% Affinity" },
+    { lv: "Lv 2", val: 40, text: "+8 Attack, +5% Affinity" },
+    { lv: "Lv 3", val: 60, text: "+12 Attack, +7% Affinity" },
+    { lv: "Lv 4", val: 80, text: "+16 Attack, +10% Affinity" },
+    { lv: "Lv 5", val: 100, text: "+20 Attack, +15% Affinity" }
+  )},
+  { name: "Airborne", cat: "Weapon", desc: "Increases the damage dealt by jumping attacks.", levels: new Array(
+    { lv: "Lv 1", val: 100, text: "+10% Jumping Attack Damage" }
+  )},
+  { name: "Antivirus", cat: "Armor", desc: "Makes it easier to overcome the Frenzy virus and grants bonus affinity upon curing it.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+3% Affinity after curing Frenzy" },
+    { lv: "Lv 2", val: 66, text: "+6% Affinity after curing Frenzy" },
+    { lv: "Lv 3", val: 100, text: "+15% Affinity after curing Frenzy" }
+  )},
+  { name: "Artillery", cat: "Weapon", desc: "Strengthens explosive attacks like Gunlance shells, Wyvern's Fire, Charge Blade impact phials, and Sticky Ammo.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+10% Explosive Damage, -15% Wyvern's Fire cooldown" },
+    { lv: "Lv 2", val: 66, text: "+20% Explosive Damage, -30% Wyvern's Fire cooldown" },
+    { lv: "Lv 3", val: 100, text: "+30% Explosive Damage, -50% Wyvern's Fire cooldown" }
+  )},
+  { name: "Attack Boost", cat: "Weapon", desc: "Increases base attack power, adding a percentage multiplier at higher levels.", levels: new Array(
+    { lv: "Lv 1", val: 25, text: "+3 Attack" },
+    { lv: "Lv 2", val: 42, text: "+5 Attack" },
+    { lv: "Lv 3", val: 58, text: "+7 Attack" },
+    { lv: "Lv 4", val: 80, text: "+2% Attack and +8 flat Attack" },
+    { lv: "Lv 5", val: 100, text: "+4% Attack and +9 flat Attack" }
+  )},
+  { name: "Black Eclipse", cat: "Set", desc: "Gore Magala set bonus. Infects you with Frenzy against large monsters; overcoming it grants a substantial Attack boost.", levels: new Array(
+    { lv: "2-Piece (I)", val: 50, text: "Infects with Frenzy; +10 Attack when cured" },
+    { lv: "4-Piece (II)", val: 100, text: "Infects with Frenzy; +15 Attack (+10 more while infected)" }
+  )},
+  { name: "Blight Resistance", cat: "Armor", desc: "Grants protection against all elemental blights (Fire, Water, Thunder, Ice, Dragon).", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "Reduces blight duration by 50%" },
+    { lv: "Lv 2", val: 66, text: "Reduces blight duration by 75%" },
+    { lv: "Lv 3", val: 100, text: "Nullifies all elemental blights" }
+  )},
+  { name: "Burst", cat: "Armor", desc: "Continuously landing hits gradually increases attack and elemental power (scales by weapon speed).", levels: new Array(
+    { lv: "Lv 1", val: 25, text: "Initial +5 Atk / +40 Elem, scales up after 5 hits" },
+    { lv: "Lv 2", val: 45, text: "Higher scaling Atk & Element on consecutive hits" },
+    { lv: "Lv 3", val: 65, text: "Strong continuous hit Atk & Element boost" },
+    { lv: "Lv 4", val: 82, text: "Major continuous hit Atk & Element boost" },
+    { lv: "Lv 5", val: 100, text: "Max +10 to +18 Atk & +60 to +140 Elem by weapon" }
+  )},
+  { name: "Burst Boost", cat: "Set", desc: "Ebony Odogaron set bonus. Extends the active duration of the Burst skill and adds bonus flat attack.", levels: new Array(
+    { lv: "2-Piece (I)", val: 50, text: "Extends Burst duration & adds +3 Attack" },
+    { lv: "4-Piece (II)", val: 100, text: "Further extends Burst duration & adds +10 Attack" }
+  )},
+  { name: "Coalescence", cat: "Armor", desc: "Temporarily increases elemental attack power and status buildup for 30 seconds after recovering from blights or abnormal statuses (such as curing Frenzy).", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+10% Heavy / +5% Light Element, +5% Status" },
+    { lv: "Lv 2", val: 66, text: "+20% Heavy / +10% Light Element, +10% Status" },
+    { lv: "Lv 3", val: 100, text: "+30% Heavy / +15% Light Element, +15% Status" }
+  )},
+  { name: "Constitution", cat: "Armor", desc: "Reduces fixed stamina depletion when evading, blocking, or performing other stamina-draining moves.", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "-10% Fixed Stamina Depletion" },
+    { lv: "Lv 2", val: 40, text: "-20% Fixed Stamina Depletion" },
+    { lv: "Lv 3", val: 60, text: "-30% Fixed Stamina Depletion" },
+    { lv: "Lv 4", val: 80, text: "-40% Fixed Stamina Depletion" },
+    { lv: "Lv 5", val: 100, text: "-50% Fixed Stamina Depletion" }
+  )},
+  { name: "Convert Element", cat: "Armor", desc: "After taking elemental damage, temporarily grants bonus Dragon element attack and triggers Dragon bursts after dealing enough elemental damage.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "Low Dragon element conversion after elemental hit" },
+    { lv: "Lv 2", val: 66, text: "Moderate Dragon element conversion & burst damage" },
+    { lv: "Lv 3", val: 100, text: "High Dragon element conversion & strong burst" }
+  )},
+  { name: "Counterstrike", cat: "Armor", desc: "Temporarily increases attack power after being knocked back by a monster attack (also triggers on hyper-armor tackles/offsets).", levels: new Array(
+    { lv: "Lv 1", val: 40, text: "+10 Attack for 30s" },
+    { lv: "Lv 2", val: 60, text: "+15 Attack for 35s" },
+    { lv: "Lv 3", val: 100, text: "+25 Attack for 45s" }
+  )},
+  { name: "Critical Boost", cat: "Weapon", desc: "Increases the damage multiplier dealt by critical hits (base critical damage is 1.25x).", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "1.28x Critical Damage" },
+    { lv: "Lv 2", val: 40, text: "1.31x Critical Damage" },
+    { lv: "Lv 3", val: 60, text: "1.34x Critical Damage" },
+    { lv: "Lv 4", val: 80, text: "1.37x Critical Damage" },
+    { lv: "Lv 5", val: 100, text: "1.40x Critical Damage" }
+  )},
+  { name: "Critical Element", cat: "Weapon", desc: "Increases elemental damage dealt when landing critical hits.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "Low elemental crit multiplier (+5% to +7%)" },
+    { lv: "Lv 2", val: 66, text: "Moderate elemental crit multiplier (+10% to +14%)" },
+
+      { name: "Flayer", cat: "Armor", desc: "Makes it easier to inflict wounds on monsters and deals bonus non-elemental damage when attacking wounds.", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "Slightly easier wound buildup + minor bonus damage" },
+    { lv: "Lv 2", val: 40, text: "Easier wound buildup + light bonus damage" },
+    { lv: "Lv 3", val: 60, text: "Moderately easier wound buildup + solid bonus damage" },
+    { lv: "Lv 4", val: 80, text: "High wound buildup + high bonus damage" },
+    { lv: "Lv 5", val: 100, text: "Max wound buildup + heavy bonus non-elemental burst" }
+  )},
+  { name: "Focus", cat: "Weapon", desc: "Increases the fill rate for weapons with gauges and speeds up charge attacks.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+5% gauge fill rate, +5% faster charge" },
+    { lv: "Lv 2", val: 66, text: "+10% gauge fill rate, +10% faster charge" },
+    { lv: "Lv 3", val: 100, text: "+15% gauge fill rate, +15% faster charge" }
+  )},
+  { name: "Foray", cat: "Armor", desc: "Increases attack power and affinity against large monsters affected by Poison or Paralysis.", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "+6 Attack vs poisoned/paralyzed monsters" },
+    { lv: "Lv 2", val: 40, text: "+8 Attack, +5% Affinity" },
+    { lv: "Lv 3", val: 60, text: "+10 Attack, +10% Affinity" },
+    { lv: "Lv 4", val: 80, text: "+12 Attack, +15% Affinity" },
+    { lv: "Lv 5", val: 100, text: "+15 Attack, +20% Affinity" }
+  )},
+  { name: "Fortify", cat: "Group", desc: "Increases attack and defense every time you fall in battle (up to two times per quest).", levels: new Array(
+    { lv: "3-Piece Group", val: 100, text: "+10% Attack & +15% Defense per cart (stacks twice)" }
+  )},
+  { name: "Guard", cat: "Weapon", desc: "Reduces knockback and stamina depletion when guarding attacks.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "Slightly decreases knockback & -15% stamina drain" },
+    { lv: "Lv 2", val: 66, text: "Decreases knockback & -30% stamina drain" },
+    { lv: "Lv 3", val: 100, text: "Greatly decreases knockback & -50% stamina drain" }
+  )},
+  { name: "Guard Up", cat: "Weapon", desc: "Allows you to guard against ordinarily unblockable monster attacks and reduces chip damage.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "Blocks unblockable attacks; reduces damage by 30%" },
+    { lv: "Lv 2", val: 66, text: "Blocks unblockable attacks; reduces damage by 50%" },
+    { lv: "Lv 3", val: 100, text: "Blocks unblockable attacks; reduces damage by 80%" }
+  )},
+  { name: "Guts (Tenacity)", cat: "Group", desc: "Group armor skill that prevents fainting one time when damage exceeds your remaining health above a threshold.", levels: new Array(
+    { lv: "3-Piece Group", val: 100, text: "Survive one lethal hit above health threshold" }
+  )},
+  { name: "Handicraft", cat: "Weapon", desc: "Extends the weapon sharpness gauge (cannot exceed maximum gauge limit).", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "+10 Weapon Sharpness" },
+    { lv: "Lv 2", val: 40, text: "+20 Weapon Sharpness" },
+    { lv: "Lv 3", val: 60, text: "+30 Weapon Sharpness" },
+    { lv: "Lv 4", val: 80, text: "+40 Weapon Sharpness" },
+    { lv: "Lv 5", val: 100, text: "+50 Weapon Sharpness" }
+  )},
+  { name: "Hasten Recovery", cat: "Set", desc: "Arkveld set bonus. Regenerates your health as you continually attack a monster.", levels: new Array(
+    { lv: "2-Piece (I)", val: 50, text: "Moderate health recovery on continual hits" },
+    { lv: "4-Piece (II)", val: 100, text: "Increased health recovery on continual hits" }
+  )},
+  { name: "Latent Power", cat: "Armor", desc: "Temporarily increases affinity and reduces stamina depletion after taking cumulative damage or after 2 minutes in combat.", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "+10% Affinity, -30% Stamina depletion" },
+    { lv: "Lv 2", val: 40, text: "+20% Affinity, -30% Stamina depletion" },
+    { lv: "Lv 3", val: 60, text: "+30% Affinity, -50% Stamina depletion" },
+    { lv: "Lv 4", val: 80, text: "+40% Affinity, -50% Stamina depletion" },
+    { lv: "Lv 5", val: 100, text: "+50% Affinity, -50% Stamina depletion" }
+  )},
+  { name: "Master's Touch", cat: "Weapon", desc: "Prevents your weapon from losing sharpness during critical hits.", levels: new Array(
+    { lv: "Lv 1", val: 100, text: "80% chance not to lose sharpness on critical hits" }
+  )},
+  { name: "Maximum Might", cat: "Armor", desc: "Increases affinity as long as your stamina bar remains completely full.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+10% Affinity while stamina is full" },
+    { lv: "Lv 2", val: 66, text: "+20% Affinity while stamina is full" },
+    { lv: "Lv 3", val: 100, text: "+30% Affinity while stamina is full" }
+  )},
+  { name: "Offensive Guard", cat: "Weapon", desc: "Temporarily increases attack power after executing a perfectly timed guard.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+5% Attack for 12s after perfect guard" },
+    { lv: "Lv 2", val: 66, text: "+10% Attack for 12s after perfect guard" },
+    { lv: "Lv 3", val: 100, text: "+15% Attack for 12s after perfect guard" }
+  )},
+  { name: "Partbreaker", cat: "Armor", desc: "Makes it easier to break or sever parts of large monsters and increases Focus Strike wound destruction damage.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+10% part break & wound destruction damage" },
+    { lv: "Lv 2", val: 66, text: "+20% part break & wound destruction damage" },
+    { lv: "Lv 3", val: 100, text: "+30% part break & wound destruction damage" }
+  )},
+  { name: "Peak Performance", cat: "Armor", desc: "Increases attack power when your health bar is completely full.", levels: new Array(
+    { lv: "Lv 1", val: 15, text: "+3 Attack at full health" },
+    { lv: "Lv 2", val: 30, text: "+6 Attack at full health" },
+    { lv: "Lv 3", val: 50, text: "+10 Attack at full health" },
+    { lv: "Lv 4", val: 75, text: "+15 Attack at full health" },
+    { lv: "Lv 5", val: 100, text: "+20 Attack at full health" }
+  )},
+  { name: "Power Prolonger", cat: "Weapon", desc: "Allows Long Sword, Dual Blades, Insect Glaive, Switch Axe, and Charge Blade to stay powered up longer.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "Slightly extends powered-up state (+10%)" },
+    { lv: "Lv 2", val: 66, text: "Moderately extends powered-up state (+20%)" },
+    { lv: "Lv 3", val: 100, text: "Greatly extends powered-up state (+40%)" }
+  )},
+  { name: "Quick Sheathe", cat: "Armor", desc: "Speeds up weapon sheathing (essential for Long Sword Special Sheathe).", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "Slightly increases sheathing speed" },
+    { lv: "Lv 2", val: 66, text: "Moderately increases sheathing speed" },
+    { lv: "Lv 3", val: 100, text: "Greatly increases sheathing speed" }
+  )},
+  { name: "Razor Sharp", cat: "Weapon", desc: "Prevents your weapon from losing sharpness.", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "10% chance not to lose sharpness" },
+    { lv: "Lv 2", val: 50, text: "25% chance not to lose sharpness" },
+    { lv: "Lv 3", val: 100, text: "50% chance not to lose sharpness" }
+  )},
+  { name: "Resentment", cat: "Armor", desc: "Increases attack power when you have recoverable red damage in your health gauge.", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "+5 Attack while red health is present" },
+    { lv: "Lv 2", val: 40, text: "+10 Attack while red health is present" },
+    { lv: "Lv 3", val: 60, text: "+15 Attack while red health is present" },
+    { lv: "Lv 4", val: 80, text: "+20 Attack while red health is present" },
+    { lv: "Lv 5", val: 100, text: "+25 Attack while red health is present" }
+  )},
+  { name: "Scorcher", cat: "Set", desc: "Rathalos set bonus. Grants a chance to deal bonus fire damage when landing attacks.", levels: new Array(
+    { lv: "2-Piece (I)", val: 50, text: "Chance to deal bonus fire damage on hit" },
+    { lv: "4-Piece (II)", val: 100, text: "Increases bonus fire damage dealt on hit" }
+  )},
+  { name: "Slugger", cat: "Weapon", desc: "Makes it easier to stun monsters with blunt/impact attacks.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+20% Stun power" },
+    { lv: "Lv 2", val: 66, text: "+30% Stun power" },
+    { lv: "Lv 3", val: 100, text: "+40% Stun power" }
+  )},
+  { name: "Stamina Surge", cat: "Armor", desc: "Speeds up stamina recovery.", levels: new Array(
+    { lv: "Lv 1", val: 33, text: "+10% Stamina recovery speed" },
+    { lv: "Lv 2", val: 66, text: "+30% Stamina recovery speed" },
+    { lv: "Lv 3", val: 100, text: "+50% Stamina recovery speed" }
+  )},
+  { name: "Super Recovery", cat: "Set", desc: "Zoh Shia set bonus. Allows health recovery to continue past the red portion of the gauge up to full.", levels: new Array(
+    { lv: "2-Piece (I)", val: 50, text: "Slow passive regeneration past red health" },
+    { lv: "4-Piece (II)", val: 100, text: "Faster passive regeneration all the way to full HP" }
+  )},
+  { name: "Weakness Exploit", cat: "Armor", desc: "Increases the affinity of attacks that exploit a monster's weak points, with an extra bonus on wounds.", levels: new Array(
+    { lv: "Lv 1", val: 20, text: "+5% Affinity on weak spots (+3% on wounds)" },
+    { lv: "Lv 2", val: 40, text: "+10% Affinity on weak spots (+5% on wounds)" },
+    { lv: "Lv 3", val: 60, text: "+15% Affinity on weak spots (+10% on wounds)" },
+    { lv: "Lv 4", val: 80, text: "+20% Affinity on weak spots (+15% on wounds)" },
+    { lv: "Lv 5", val: 100, text: "+30% Affinity on weak spots (+20% on wounds)" }
+  )}
+).sort((a, b) => a.name.localeCompare(b.name));
+
+const BUILDS_MAP = new Map(new Array(
+  new Array("Great Sword", new Array(
+
+            let activeSkill = SKILLS.find(s => s.name === "Coalescence") || SKILLS.at(0);
+let currentCat = "All";
+let searchQuery = "";
+
+function applyTheme(themeName) {
+  document.body.className = "theme-" + themeName;
+  document.querySelectorAll(".theme-btn").forEach(b => {
+    b.classList.toggle("active", b.dataset.t === themeName);
+  });
+  try { localStorage.setItem("mh_wilds_theme", themeName); } catch (e) {}
+}
+
+function copyTextSafe(text, btnEl) {
+  const done = () => {
+    btnEl.textContent = "Copied!";
+    setTimeout(() => { btnEl.textContent = "Copy Build"; }, 1600);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+
+function fallbackCopy(text, callback) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand("copy"); } catch (e) {}
+  document.body.removeChild(ta);
+  callback();
+}
+
+function selectSkill(skill) {
+  activeSkill = skill;
+  document.getElementById("activeBadge").textContent = skill.cat;
+  document.getElementById("activeBadge").className = "skill-badge badge-" + skill.cat;
+  document.getElementById("activeTitle").textContent = skill.name;
+  document.getElementById("activeDesc").textContent = skill.desc;
+
+  const barsWrap = document.getElementById("barsWrap");
+  barsWrap.innerHTML = "";
+  skill.levels.forEach(l => {
+    const row = document.createElement("div");
+    row.className = "bar-row";
+    row.innerHTML = `
+      <div class="bar-label-line">
+        <span>${l.lv}</span>
+        <span>${l.text}</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${l.val}%"></div>
+      </div>
+    `;
+    barsWrap.appendChild(row);
+  });
+
+  renderList();
+}
+
+function renderList() {
+  const listEl = document.getElementById("skillList");
+  listEl.innerHTML = "";
+
+  const filtered = SKILLS.filter(s => {
+    const matchCat = currentCat === "All" || s.cat === currentCat;
+    const matchText = s.name.toLowerCase().includes(searchQuery) || s.desc.toLowerCase().includes(searchQuery);
+    return matchCat && matchText;
+  });
+
+  document.getElementById("skillCountLabel").textContent = `Showing ${filtered.length} of ${SKILLS.length} skills`;
+
+  if (filtered.length === 0) {
+    listEl.innerHTML = `<div class="empty-state">No skills matched your search. Tap <strong>Reset</strong> to show all skills.</div>`;
+    return;
   }
 
-  header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 14px 16px;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
+  filtered.forEach(s => {
+    const card = document.createElement("div");
+    card.className = "skill-item" + (s.name === activeSkill.name ? " selected" : "");
+    const pills = s.levels.map(l => `<span class="lvl-pill"><strong>${l.lv}:</strong> ${l.text}</span>`).join("");
+    card.innerHTML = `
+      <div class="skill-item-top">
+        <span class="skill-item-name">${s.name}</span>
+        <span class="skill-badge badge-${s.cat}">${s.cat}</span>
+      </div>
+      <p class="skill-item-desc">${s.desc}</p>
+      <div class="skill-levels-mini">${pills}</div>
+    `;
+    card.onclick = () => {
+      selectSkill(s);
+      document.getElementById("chartCard").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+    listEl.appendChild(card);
+  });
+}
 
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+function initWeapons() {
+  const grid = document.getElementById("weaponGrid");
+  BUILDS_MAP.forEach((builds, weapon) => {
+    const btn = document.createElement("button");
+    btn.className = "weapon-btn";
+    btn.textContent = weapon;
+    btn.onclick = () => openWeaponModal(weapon);
+    grid.appendChild(btn);
+  });
+}
 
-  h1 {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: -0.01em;
-    color: var(--accent);
-  }
+function openWeaponModal(weapon) {
+  document.getElementById("modalWeaponTitle").textContent = weapon + " — Popular Builds";
+  const body = document.getElementById("modalBuildBody");
+  body.innerHTML = "";
+  const list = BUILDS_MAP.get(weapon) || new Array();
+  list.forEach(b => {
+    const div = document.createElement("div");
+    div.className = "build-card";
+    const copyText = `MH Wilds (${weapon}) - ${b.title}\nBest For: ${b.monster}\nCore Skills: ${b.core}\nNotes: ${b.notes}`;
+    div.innerHTML = `
+      <div class="build-card-top">
+        <h3>${b.title}</h3>
+        <button class="copy-build-btn">Copy Build</button>
+      </div>
+      <div class="build-meta"><strong>Best For:</strong> ${b.monster}</div>
+      <div class="build-meta"><strong>Core Skills:</strong> ${b.core}</div>
+      <div class="build-meta" style="color:var(--text-muted);margin-top:6px;">${b.notes}</div>
+    `;
+    const copyBtn = div.querySelector(".copy-build-btn");
+    copyBtn.onclick = () => copyTextSafe(copyText, copyBtn);
+    body.appendChild(div);
+  });
+  document.getElementById("buildModal").classList.add("open");
+}
 
-  .theme-bar {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
+function wrapTextLines(ctx, text, maxWidth) {
+  const words = text.split(" ");
+  const lines = new Array();
+  let current = "";
+  words.forEach(w => {
+    const test = current ? current + " " + w : w;
+    if (ctx.measureText(test).width > maxWidth && current) {
+      lines.push(current);
+      current = w;
+    } else {
+      current = test;
+    }
+  });
+  if (current) lines.push(current);
+  return lines;
+}
 
-  .theme-btn {
-    border: 1px solid var(--border);
-    background: var(--surface-2);
-    color: var(--text);
-    padding: 5px 9px;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-  }
+function exportImage(isFull) {
+  const styles = getComputedStyle(document.body);
+  const bg = styles.getPropertyValue("--bg").trim();
+  const surface = styles.getPropertyValue("--surface").trim();
+  const surface2 = styles.getPropertyValue("--surface-2").trim();
+  const border = styles.getPropertyValue("--border").trim();
+  const text = styles.getPropertyValue("--text").trim();
+  const muted = styles.getPropertyValue("--text-muted").trim();
+  const accent = styles.getPropertyValue("--accent").trim();
 
-  .theme-btn.active {
-    border-color: var(--accent);
-    background: var(--accent);
-    color: #000;
-  }
+  const items = isFull ? SKILLS : new Array(activeSkill);
+  const width = 920;
 
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 14px;
-  }
+  const measureCanvas = document.createElement("canvas");
+  const mCtx = measureCanvas.getContext("2d");
+  mCtx.font = "16px sans-serif";
 
-  .section-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 16px;
-  }
+  const prepared = items.map(s => {
+    const lines = wrapTextLines(mCtx, s.desc, width - 92);
+    const cardH = 68 + (lines.length * 22) + (s.levels.length * 42);
+    return { skill: s, lines, cardH };
+  });
 
-  .section-title {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    margin: 0 0 10px 0;
-    font-weight: 700;
-  }
+  let totalHeight = 94;
+  prepared.forEach(p => { totalHeight += p.cardH + 16; });
 
-  .weapon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
-    gap: 8px;
-  }
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = totalHeight;
+  const ctx = canvas.getContext("2d");
 
-  .weapon-btn {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 9px 10px;
-    border-radius: 10px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    text-align: center;
-    cursor: pointer;
-  }
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, width, totalHeight);
 
-  .weapon-btn:active, .weapon-btn:hover {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-  }
+  ctx.fillStyle = accent;
+  ctx.font = "bold 28px sans-serif";
+  ctx.fillText(isFull ? "Monster Hunter Wilds — Complete A-Z Equipment Skills" : `MH Wilds Skill: ${activeSkill.name} (${activeSkill.cat})`, 32, 48);
 
-  .controls {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
+  let y = 78;
+  prepared.forEach(({ skill: s, lines, cardH }) => {
+    ctx.fillStyle = surface;
+    ctx.fillRect(28, y, width - 56, cardH);
+    ctx.strokeStyle = border;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(28, y, width - 56, cardH);
 
-  .search-wrap {
-    display: flex;
-    gap: 8px;
-  }
+    ctx.fillStyle = accent;
+    ctx.font = "bold 22px sans-serif";
+    ctx.fillText(`${s.name} (${s.cat})`, 46, y + 34);
 
-  .search-input {
-    flex: 1;
-    padding: 11px 14px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text);
-    font-size: 1rem;
-  }
+    ctx.fillStyle = muted;
+    ctx.font = "16px sans-serif";
+    let descY = y + 58;
+    lines.forEach(line => {
+      ctx.fillText(line, 46, descY);
+      descY += 22;
+    });
 
-  .clear-btn {
-    padding: 0 14px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: var(--surface-2);
-    color: var(--text);
-    font-weight: 700;
-    cursor: pointer;
-  }
+    let ly = descY + 12;
+    s.levels.forEach(l => {
+      ctx.fillStyle = text;
+      ctx.font = "bold 16px sans-serif";
+      ctx.fillText(`${l.lv}: ${l.text}`, 46, ly);
 
-  .filter-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
+      ctx.fillStyle = surface2;
+      ctx.fillRect(46, ly + 8, width - 92, 12);
+      ctx.fillStyle = accent;
+      ctx.fillRect(46, ly + 8, ((width - 92) * l.val) / 100, 12);
+      ly += 42;
+    });
 
-  .filter-row {
-    display: flex;
-    gap: 6px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-  }
+    y += cardH + 16;
+  });
 
-  .filter-btn {
-    padding: 7px 13px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--text);
-    font-size: 0.85rem;
-    font-weight: 600;
-    white-space: nowrap;
-    cursor: pointer;
-  }
+  const dataUrl = canvas.toDataURL("image/png");
+  document.getElementById("previewImg").src = dataUrl;
+  const dlLink = document.getElementById("downloadPngLink");
+  dlLink.href = dataUrl;
+  dlLink.download = isFull ? "mh-wilds-all-skills.png" : `mh-wilds-${activeSkill.name.toLowerCase().replace(/\s+/g, "-")}.png`;
+  document.getElementById("imgModal").classList.add("open");
+}
 
-  .filter-btn.active {
-    background: var(--accent);
-    color: #000;
-    border-color: var(--accent);
-  }
+document.querySelectorAll(".theme-btn").forEach(btn => {
+  btn.onclick = () => applyTheme(btn.dataset.t);
+});
 
-  .count-label {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    font-weight: 600;
-  }
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentCat = btn.dataset.cat;
+    renderList();
+  };
+});
 
-  .chart-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 16px;
-  }
+document.getElementById("searchInput").oninput = (e) => {
+  searchQuery = e.target.value.toLowerCase().trim();
+  renderList();
+};
 
-  .chart-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 12px;
-    flex-wrap: wrap;
-  }
+document.getElementById("clearSearchBtn").onclick = () => {
+  searchQuery = "";
+  currentCat = "All";
+  document.getElementById("searchInput").value = "";
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active", b.dataset.cat === "All"));
+  renderList();
+};
 
-  .skill-badge {
-    display: inline-block;
-    padding: 3px 8px;
-    border-radius: 6px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #fff;
-    margin-bottom: 4px;
-  }
+document.getElementById("closeBuildModal").onclick = () => document.getElementById("buildModal").classList.remove("open");
+document.getElementById("closeImgModal").onclick = () => document.getElementById("imgModal").classList.remove("open");
 
-  .badge-Weapon { background: var(--badge-weapon); }
-  .badge-Armor { background: var(--badge-armor); }
-  .badge-Set { background: var(--badge-set); }
-  .badge-Group { background: var(--badge-group); }
+document.getElementById("buildModal").onclick = (e) => {
+  if (e.target.id === "buildModal") document.getElementById("buildModal").classList.remove("open");
+};
+document.getElementById("imgModal").onclick = (e) => {
+  if (e.target.id === "imgModal") document.getElementById("imgModal").classList.remove("open");
+};
 
-  .active-skill-title {
-    margin: 2px 0 6px 0;
-    font-size: 1.35rem;
-    font-weight: 800;
-  }
+document.getElementById("btnExportSingle").onclick = () => exportImage(false);
+document.getElementById("btnExportFull").onclick = () => exportImage(true);
 
-  .active-skill-desc {
-    margin: 0 0 14px 0;
-    font-size: 1.02rem;
-    line-height: 1.48;
-    color: var(--text);
-  }
+try {
+  const savedTheme = localStorage.getItem("mh_wilds_theme");
+  if (savedTheme) applyTheme(savedTheme);
+} catch (e) {}
 
-  .bars-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
+try {
+  initWeapons();
+  selectSkill(activeSkill);
+} catch (err) {
+  document.body.innerHTML = "<div style='padding:20px;color:#fff;font-family:sans-serif'>App Error: " + err.message + "</div>";
+}
+</script>
+</body>
+</html>
 
-  .bar-row {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .bar-label-line {
-    display: flex;
-    justify-content: space-between;
-    gap: 8px;
-    font-size: 0.92rem;
-    font-weight: 700;
-  }
-
-  .bar-track {
-    width: 100%;
-    height: 16px;
-    background: var(--surface-2);
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-
-  .bar-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 8px;
-    transition: width 0.25s ease;
-  }
-
-  .action-bar {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 14px;
-  }
-
-  .action-btn {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 0.88rem;
-    font-weight: 700;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .action-btn.secondary {
-    background: var(--surface-2);
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
-  .skill-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .skill-item {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 14px;
-    cursor: pointer;
-    transition: border-color 0.15s;
-  }
-
-  .skill-item.selected {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 1px var(--accent);
-  }
-
-  .skill-item-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-
-  .skill-item-name {
-    font-size: 1.12rem;
-    font-weight: 800;
-  }
-
-  .skill-item-desc {
-    font-size: 0.98rem;
-    line-height: 1.45;
-    color: var(--text-muted);
-    margin: 0 0 8px 0;
-  }
-
-  .skill-levels-mini {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .lvl-pill {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 28px 16px;
-    background: var(--surface);
-    border: 1px dashed var(--border);
-    border-radius: 12px;
-    color: var(--text-muted);
-  }
-
-  .modal-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.78);
-    z-index: 100;
-    padding: 16px;
-    overflow-y: auto;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .modal-backdrop.open {
-    display: flex;
-  }
-
-  .modal-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    max-width: 640px;
-    width: 100%;
-    max-height: 88vh;
-    overflow-y: auto;
-    padding: 18px;
-  }
-
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 10px;
-    margin-bottom: 14px;
-    gap: 8px;
-  }
-
-  .close-btn {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .build-card {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 12px;
-  }
-
-  .build-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 8px;
-    margin-bottom: 6px;
-  }
-
-  .build-card h3 {
-    margin: 0;
-    color: var(--accent);
-    font-size: 1.05rem;
-  }
-
-  .copy-build-btn {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    padding: 5px 10px;
