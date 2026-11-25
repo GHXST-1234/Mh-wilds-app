@@ -81,3 +81,101 @@ h1{margin:0;font-size:1.2rem;font-weight:800;color:var(--accent)}
 const S=(n,c,d,l)=>({name:n,cat:c,desc:d,levels:l});
 const L=(lv,val,text)=>({lv,val,text});
 const SKILLS=Array.of(
+let activeSkill=SKILLS.find(s=>s.name==="Coalescence")||SKILLS.at(0),currentCat="All",searchQuery="";
+const $=id=>document.getElementById(id);
+
+function applyTheme(t){
+  document.body.className="theme-"+t;
+  document.querySelectorAll(".theme-btn").forEach(b=>b.classList.toggle("active",b.dataset.t===t));
+  try{localStorage.setItem("mh_wilds_theme",t)}catch(e){}
+}
+
+function selectSkill(s){
+  activeSkill=s;
+  $("activeBadge").textContent=s.cat;
+  $("activeBadge").className="skill-badge badge-"+s.cat;
+  $("activeTitle").textContent=s.name;
+  $("activeDesc").textContent=s.desc;
+  $("barsWrap").innerHTML=s.levels.map(l=>`<div class="bar-row"><div class="bar-label-line"><span>${l.lv}</span><span>${l.text}</span></div><div class="bar-track"><div class="bar-fill" style="width:${l.val}%"></div></div></div>`).join("");
+  renderList();
+}
+
+function renderList(){
+  const f=SKILLS.filter(s=>(currentCat==="All"||s.cat===currentCat)&&(s.name.toLowerCase().includes(searchQuery)||s.desc.toLowerCase().includes(searchQuery)));
+  $("skillCountLabel").textContent=`Showing ${f.length} of ${SKILLS.length} skills`;
+  const el=$("skillList");
+  if(!f.length){el.innerHTML=`<div class="empty-state">No skills matched. Tap <strong>Reset</strong> to show all.</div>`;return}
+  el.innerHTML="";
+  f.forEach(s=>{
+    const d=document.createElement("div");
+    d.className="skill-item"+(s.name===activeSkill.name?" selected":"");
+    d.innerHTML=`<div class="skill-item-top"><span class="skill-item-name">${s.name}</span><span class="skill-badge badge-${s.cat}">${s.cat}</span></div><p class="skill-item-desc">${s.desc}</p><div class="skill-levels-mini">${s.levels.map(l=>`<span class="lvl-pill"><strong>${l.lv}:</strong> ${l.text}</span>`).join("")}</div>`;
+    d.onclick=()=>{selectSkill(s);$("chartCard").scrollIntoView({behavior:"smooth",block:"nearest"})};
+    el.appendChild(d);
+  });
+}
+
+function openWeaponModal(w){
+  $("modalWeaponTitle").textContent=w+" — Popular Builds";
+  const body=$("modalBuildBody");body.innerHTML="";
+  (BUILDS.get(w)||Array.of()).forEach(b=>{
+    const div=document.createElement("div");div.className="build-card";
+    const txt=`MH Wilds (${w}) - ${b.title}\nBest For: ${b.monster}\nCore Skills: ${b.core}\nNotes: ${b.notes}`;
+    div.innerHTML=`<div class="build-card-top"><h3>${b.title}</h3><button class="copy-build-btn">Copy Build</button></div><div class="build-meta"><strong>Best For:</strong> ${b.monster}</div><div class="build-meta"><strong>Core Skills:</strong> ${b.core}</div><div class="build-meta" style="color:var(--text-muted);margin-top:6px">${b.notes}</div>`;
+    const btn=div.querySelector(".copy-build-btn");
+    btn.onclick=()=>{
+      const ok=()=>{btn.textContent="Copied!";setTimeout(()=>btn.textContent="Copy Build",1500)};
+      if(navigator.clipboard)navigator.clipboard.writeText(txt).then(ok).catch(ok);else ok();
+    };
+    body.appendChild(div);
+  });
+  $("buildModal").classList.add("open");
+}
+
+function exportImage(isFull){
+  const st=getComputedStyle(document.body);
+  const bg=st.getPropertyValue("--bg").trim(),sf=st.getPropertyValue("--surface").trim(),sf2=st.getPropertyValue("--surface-2").trim(),bd=st.getPropertyValue("--border").trim(),tx=st.getPropertyValue("--text").trim(),mt=st.getPropertyValue("--text-muted").trim(),ac=st.getPropertyValue("--accent").trim();
+  const items=isFull?SKILLS:Array.of(activeSkill),W=920;
+  const mc=document.createElement("canvas").getContext("2d");mc.font="16px sans-serif";
+  const prep=items.map(s=>{
+    const lines=Array.of();let cur="";
+    s.desc.split(" ").forEach(w=>{const t=cur?cur+" "+w:w;if(mc.measureText(t).width>W-92&&cur){lines.push(cur);cur=w}else cur=t});
+    if(cur)lines.push(cur);
+    return{s,lines,h:68+lines.length*22+s.levels.length*42};
+  });
+  let H=94;prep.forEach(p=>H+=p.h+16);
+  const cv=document.createElement("canvas");cv.width=W;cv.height=H;const ctx=cv.getContext("2d");
+  ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  ctx.fillStyle=ac;ctx.font="bold 28px sans-serif";
+  ctx.fillText(isFull?"Monster Hunter Wilds — A-Z Equipment Skills":`MH Wilds Skill: ${activeSkill.name} (${activeSkill.cat})`,32,48);
+  let y=78;
+  prep.forEach(({s,lines,h})=>{
+    ctx.fillStyle=sf;ctx.fillRect(28,y,W-56,h);ctx.strokeStyle=bd;ctx.lineWidth=2;ctx.strokeRect(28,y,W-56,h);
+    ctx.fillStyle=ac;ctx.font="bold 22px sans-serif";ctx.fillText(`${s.name} (${s.cat})`,46,y+34);
+    ctx.fillStyle=mt;ctx.font="16px sans-serif";let dy=y+58;lines.forEach(ln=>{ctx.fillText(ln,46,dy);dy+=22});
+    let ly=dy+12;
+    s.levels.forEach(l=>{
+      ctx.fillStyle=tx;ctx.font="bold 16px sans-serif";ctx.fillText(`${l.lv}: ${l.text}`,46,ly);
+      ctx.fillStyle=sf2;ctx.fillRect(46,ly+8,W-92,12);ctx.fillStyle=ac;ctx.fillRect(46,ly+8,(W-92)*l.val/100,12);ly+=42;
+    });
+    y+=h+16;
+  });
+  const url=cv.toDataURL("image/png");$("previewImg").src=url;$("downloadPngLink").href=url;$("imgModal").classList.add("open");
+}
+
+document.querySelectorAll(".theme-btn").forEach(b=>b.onclick=()=>applyTheme(b.dataset.t));
+document.querySelectorAll(".filter-btn").forEach(b=>b.onclick=()=>{document.querySelectorAll(".filter-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");currentCat=b.dataset.cat;renderList()});
+$("searchInput").oninput=e=>{searchQuery=e.target.value.toLowerCase().trim();renderList()};
+$("clearSearchBtn").onclick=()=>{searchQuery="";currentCat="All";$("searchInput").value="";document.querySelectorAll(".filter-btn").forEach(b=>b.classList.toggle("active",b.dataset.cat==="All"));renderList()};
+$("closeBuildModal").onclick=()=>$("buildModal").classList.remove("open");
+$("closeImgModal").onclick=()=>$("imgModal").classList.remove("open");
+$("buildModal").onclick=e=>{if(e.target.id==="buildModal")$("buildModal").classList.remove("open")};
+$("imgModal").onclick=e=>{if(e.target.id==="imgModal")$("imgModal").classList.remove("open")};
+$("btnExportSingle").onclick=()=>exportImage(false);
+$("btnExportFull").onclick=()=>exportImage(true);
+BUILDS.forEach((_,w)=>{const b=document.createElement("button");b.className="weapon-btn";b.textContent=w;b.onclick=()=>openWeaponModal(w);$("weaponGrid").appendChild(b)});
+try{const t=localStorage.getItem("mh_wilds_theme");if(t)applyTheme(t)}catch(e){}
+selectSkill(activeSkill);
+</script>
+</body>
+</html>
